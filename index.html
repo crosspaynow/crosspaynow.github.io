@@ -788,18 +788,26 @@
         }
     </style>
     <script>
-        // 3D Parallax on Mouse Move
+        // 3D Parallax on Mouse Move (subtle effect)
+        let mouseX = 0, mouseY = 0;
         document.addEventListener('mousemove', (e) => {
-            const cards = document.querySelectorAll('.feature-card, .stat-card, .currency-card, .future-feature-card');
-            const mouseX = e.clientX / window.innerWidth;
-            const mouseY = e.clientY / window.innerHeight;
+            mouseX = e.clientX / window.innerWidth;
+            mouseY = e.clientY / window.innerHeight;
             
-            cards.forEach((card, index) => {
-                const speed = (index % 3 + 1) * 0.5;
-                const x = (mouseX - 0.5) * speed * 10;
-                const y = (mouseY - 0.5) * speed * 10;
-                
-                card.style.transform = `translate(${x}px, ${y}px) translateZ(0)`;
+            const hero = document.querySelector('.hero h1');
+            if (hero) {
+                const x = (mouseX - 0.5) * 20;
+                const y = (mouseY - 0.5) * 20;
+                hero.style.transform = `translate(${x}px, ${y}px) translateZ(50px)`;
+            }
+            
+            // Subtle parallax for background shapes
+            const shapes = document.querySelectorAll('.bg-shape');
+            shapes.forEach((shape, index) => {
+                const speed = (index + 1) * 0.3;
+                const x = (mouseX - 0.5) * speed * 50;
+                const y = (mouseY - 0.5) * speed * 50;
+                shape.style.transform = `translate(${x}px, ${y}px)`;
             });
         });
 
